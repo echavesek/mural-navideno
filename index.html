@@ -7,7 +7,6 @@
 <title>Mural Navideño · Amigo Secreto</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 :root{--rojo:#c0392b;--oro:#f4c95d;--tinta:#4a2c1a;--seg:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
@@ -48,8 +47,7 @@ h2{font-family:'Mountains of Christmas',cursive;text-align:center;font-size:1.9r
 @keyframes latido{50%{transform:scale(1.18)}}
 @keyframes entrada{from{opacity:0;transform:translateY(-20px) scale(.8)}}
 .vacio{grid-column:1/-1;text-align:center;opacity:.9;padding:30px 10px}
-footer{text-align:center;padding:0 0 calc(110px + var(--seg));position:relative;z-index:2}
-footer button{background:none;border:1px solid rgba(255,255,255,.35);color:#fff;padding:10px 16px;border-radius:30px;cursor:pointer}
+footer{text-align:center;padding:20px 0 calc(110px + var(--seg));position:relative;z-index:2;opacity:.7;font-size:.9rem}
 #fab{position:fixed;left:50%;bottom:calc(16px + var(--seg));transform:translateX(-50%);z-index:8;border:0;border-radius:40px;padding:15px 26px;font:800 1.05rem 'Nunito';color:#fff;background:linear-gradient(135deg,#e74c3c,#c0392b);box-shadow:0 8px 24px rgba(0,0,0,.5);cursor:pointer;white-space:nowrap}
 #fab:active{transform:translateX(-50%) scale(.95)}
 
@@ -140,7 +138,7 @@ footer button{background:none;border:1px solid rgba(255,255,255,.35);color:#fff;
   </div>
   <div class="mural" id="mural"></div>
 </main>
-<footer><button id="excel">⬇️ Descargar Excel</button></footer>
+<footer>🎄 Tiendas Ekono · Espíritu Navideño 🎄</footer>
 <button id="fab">✍️ Escribir mi carta</button>
 
 <div class="hoja" id="hoja">
@@ -208,6 +206,19 @@ function villancico(){
 }
 $('sonido').onclick = () => { sonido=!sonido; $('sonido').textContent = sonido?'🔔':'🔕'; if(sonido) sonClick(); };
 $('jingle').onclick = villancico;
+
+// Reproducir villancico al abrir (con manejo automático de políticas de audio del navegador)
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    villancico();
+  }, 600);
+});
+document.addEventListener('click', () => {
+  const a = audio();
+  if (a && a.state === 'suspended') {
+    a.resume();
+  }
+}, { once: true });
 
 /* ---------- Decoración ---------- */
 $('luces').innerHTML = '<i></i>'.repeat(Math.ceil(innerWidth/34));
@@ -328,12 +339,6 @@ addEventListener('keydown',ev=>{ if(ev.key==='Escape'){ cerrar(); cerrarHoja(); 
 $('buscar').oninput=render;
 $('azar').onclick=()=>{ if(!cartas.length) return toast('Aún no hay cartas 🎅'); sonClick(); abrir(cartas[Math.floor(Math.random()*cartas.length)]); };
 
-$('excel').onclick=()=>{
-  if(!cartas.length) return toast('Aún no hay cartas para exportar');
-  const filas=cartas.map(c=>({Nombre:c.nombre,'Qué quiere':c.deseo,Pista:c.pista||'',Fecha:new Date(c.fecha).toLocaleString('es-CR')}));
-  const ws=XLSX.utils.json_to_sheet(filas); ws['!cols']=[{wch:24},{wch:60},{wch:40},{wch:20}];
-  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Amigo Secreto'); XLSX.writeFile(wb,'amigo_secreto.xlsx');
-};
 cargar();
 </script>
 </body>
