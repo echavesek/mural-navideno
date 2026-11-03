@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b3820">
+<title>Mural Navideño · Amigo Secreto</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{--rojo:#c0392b;--oro:#f4c95d;--tinta:#4a2c1a;--seg:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Nunito',sans-serif;min-height:100dvh;color:#fff;background:radial-gradient(ellipse at 50% -10%,#237a47,#0b3820 55%,#06231a) fixed;overflow-x:hidden}
+body.lock{overflow:hidden}
+button{font-family:inherit}
+#nieve{position:fixed;inset:0;pointer-events:none;z-index:1}
+.luces{display:flex;justify-content:space-around;position:relative;z-index:2;padding-top:env(safe-area-inset-top,0px)}
+.luces i{width:10px;height:16px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:parpadeo 2s infinite;margin-top:-3px;box-shadow:0 0 12px currentColor;background:currentColor}
+.luces i:nth-child(4n+1){color:#ff5252}.luces i:nth-child(4n+2){color:#ffd54f;animation-delay:.5s}.luces i:nth-child(4n+3){color:#69f0ae;animation-delay:1s}.luces i:nth-child(4n){color:#40c4ff;animation-delay:1.5s}
+@keyframes parpadeo{50%{opacity:.35}}
+header{text-align:center;padding:16px 16px 4px;position:relative;z-index:2}
+h1{font-family:'Mountains of Christmas',cursive;font-size:clamp(2rem,9vw,3.6rem);color:var(--oro);text-shadow:0 3px 0 #7a1f14,0 0 24px rgba(244,201,93,.4);line-height:1.1}
+.cuenta{display:inline-block;margin-top:10px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);padding:7px 16px;border-radius:30px;font-weight:700;font-size:.92rem;border:1px solid rgba(255,255,255,.2)}
+#sonido{position:absolute;top:10px;right:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.2rem;width:44px;height:44px;border-radius:50%;cursor:pointer;backdrop-filter:blur(8px)}
+main{max-width:980px;margin:0 auto;padding:10px 14px calc(110px + var(--seg));position:relative;z-index:2}
+.hero{text-align:center;margin:12px auto 26px;max-width:420px}
+.hero p{opacity:.92;margin-bottom:14px;line-height:1.4}
+.cta{border:0;border-radius:40px;padding:15px 28px;font:800 1.1rem 'Nunito';color:#fff;background:linear-gradient(135deg,#e74c3c,#c0392b);box-shadow:0 8px 22px rgba(192,57,43,.5);cursor:pointer}
+.cta:active{transform:scale(.96)}
+h2{font-family:'Mountains of Christmas',cursive;text-align:center;font-size:1.9rem;color:var(--oro)}
+.sub{text-align:center;opacity:.9;margin:2px 0 12px;font-size:.95rem}
+.barra{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.barra input{flex:1 1 100%;max-width:380px;padding:12px 16px;border-radius:30px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);color:#fff;font:inherit;font-size:16px;backdrop-filter:blur(8px)}
+.barra input::placeholder{color:#ffffffb0}
+.barra button{padding:10px 16px;border-radius:30px;border:0;background:var(--oro);color:#5a2a0a;font:800 .92rem 'Nunito';cursor:pointer}
+.mural{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 14px}
+@media(min-width:560px){.mural{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:26px 18px}}
+.sobre{position:relative;aspect-ratio:3/2;border:0;border-radius:8px;cursor:pointer;color:#fff;font:800 1rem 'Nunito';padding:8px;display:flex;align-items:flex-end;justify-content:center;text-align:center;box-shadow:0 8px 18px rgba(0,0,0,.4);transition:transform .25s;animation:entrada .6s both;min-height:96px}
+.sobre:active{transform:scale(.95)!important}
+@media(hover:hover){.sobre:hover{transform:rotate(0) scale(1.07)!important}}
+.sobre::before{content:"";position:absolute;inset:0;border-radius:8px;background:rgba(0,0,0,.18);clip-path:polygon(0 0,100% 0,50% 62%)}
+.sobre .sello{position:absolute;top:36%;left:50%;transform:translate(-50%,-50%);font-size:1.7rem;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+.sobre span{position:relative;text-shadow:0 1px 3px rgba(0,0,0,.5);word-break:break-word;line-height:1.15}
+.sobre .pin{position:absolute;top:-8px;left:50%;width:12px;height:12px;border-radius:50%;background:#ddd;box-shadow:0 2px 3px rgba(0,0,0,.5);transform:translateX(-50%)}
+.sobre .nuevo{position:absolute;top:-8px;right:-4px;background:#ffeb3b;color:#b71c1c;font-size:.68rem;padding:2px 8px;border-radius:10px;animation:latido 1.2s infinite;z-index:2}
+@keyframes latido{50%{transform:scale(1.18)}}
+@keyframes entrada{from{opacity:0;transform:translateY(-20px) scale(.8)}}
+.vacio{grid-column:1/-1;text-align:center;opacity:.9;padding:30px 10px}
+footer{text-align:center;padding:0 0 calc(110px + var(--seg));position:relative;z-index:2}
+footer button{background:none;border:1px solid rgba(255,255,255,.35);color:#fff;padding:10px 16px;border-radius:30px;cursor:pointer}
+#fab{position:fixed;left:50%;bottom:calc(16px + var(--seg));transform:translateX(-50%);z-index:8;border:0;border-radius:40px;padding:15px 26px;font:800 1.05rem 'Nunito';color:#fff;background:linear-gradient(135deg,#e74c3c,#c0392b);box-shadow:0 8px 24px rgba(0,0,0,.5);cursor:pointer;white-space:nowrap}
+#fab:active{transform:translateX(-50%) scale(.95)}
+
+/* Hoja para crear carta */
+.hoja{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:flex-end;justify-content:center;z-index:20;backdrop-filter:blur(3px)}
+.hoja.on{display:flex}
+.panel{background:#fffaf0;color:var(--tinta);width:100%;max-width:540px;max-height:94dvh;border-radius:28px 28px 0 0;display:flex;flex-direction:column;animation:subir .35s cubic-bezier(.2,.9,.3,1);position:relative}
+@media(min-width:700px){.hoja{align-items:center}.panel{border-radius:28px;max-height:90vh}}
+@keyframes subir{from{transform:translateY(100%)}}
+.asa{width:44px;height:5px;background:#d9c9a3;border-radius:5px;margin:10px auto 0}
+.x{position:absolute;top:10px;right:12px;width:40px;height:40px;border:0;border-radius:50%;background:#f1e6cc;font-size:1.4rem;cursor:pointer;color:var(--tinta)}
+.panel h3{font-family:'Mountains of Christmas',cursive;font-size:1.7rem;color:var(--rojo);text-align:center;padding:6px 50px 0}
+.cuerpo{overflow-y:auto;padding:10px 18px 6px;-webkit-overflow-scrolling:touch;flex:1}
+.prev{border-radius:18px;padding:16px 14px;text-align:center;border-top:10px solid;box-shadow:0 8px 20px rgba(0,0,0,.15);margin-bottom:12px;min-height:110px;transition:.25s}
+.prev .s{font-size:2.2rem;display:block}
+.prev b{font-family:'Mountains of Christmas',cursive;font-size:1.5rem;display:block;line-height:1.1}
+.prev .d{margin-top:4px;word-break:break-word;font-size:1.05rem}
+.prev .pi{margin-top:6px;font-size:.88rem;opacity:.8}
+.tabs{display:flex;background:#f1e6cc;border-radius:30px;padding:4px;margin-bottom:12px}
+.tabs button{flex:1;border:0;padding:10px;border-radius:26px;background:none;font:800 .95rem 'Nunito';color:#8a6a45;cursor:pointer}
+.tabs button.on{background:#fff;color:var(--rojo);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.campo{margin-bottom:12px}
+.campo label,.lbl{display:flex;justify-content:space-between;font-weight:800;font-size:.9rem;margin-bottom:6px}
+.lbl small,.campo label small{font-weight:400;opacity:.65}
+.campo input,.campo textarea{width:100%;padding:13px 14px;border:2px solid #eadbb8;border-radius:14px;font:inherit;font-size:16px;background:#fff;color:var(--tinta)}
+.campo input:focus,.campo textarea:focus{outline:none;border-color:var(--rojo)}
+.campo textarea{min-height:92px;resize:none}
+.grupo{margin-bottom:16px}
+.opts{display:flex;flex-wrap:wrap;gap:10px}
+.opts button{border:3px solid transparent;cursor:pointer;background:#fff;border-radius:14px;transition:.15s;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.opts button.sel{border-color:var(--rojo);transform:scale(1.08)}
+.opts .sw{width:44px;height:44px;border-radius:50%}
+.opts .em{width:46px;height:46px;font-size:1.5rem}
+.opts .pp{width:calc(25% - 8px);min-width:64px;height:62px;font-size:.7rem;font-weight:800;padding:4px;display:flex;align-items:flex-end;justify-content:center}
+.opts .ff{padding:8px 16px;font-size:1.25rem;min-height:44px}
+.acciones{display:flex;gap:10px;padding:10px 18px calc(14px + var(--seg));border-top:1px solid #eadbb8;background:#fffaf0}
+.acciones button{border:0;border-radius:30px;padding:15px;font:800 1.05rem 'Nunito';cursor:pointer}
+.sec{background:#f1e6cc;color:var(--tinta);flex:0 0 36%}
+.guardar{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;flex:1;box-shadow:0 4px 12px rgba(192,57,43,.4)}
+.guardar:disabled{opacity:.6}
+
+/* Lectura de carta */
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:30;padding:16px}
+#modal.on{display:flex}
+.escena{width:min(340px,92vw);height:330px;position:relative;margin-top:100px}
+.env{position:absolute;bottom:0;left:0;right:0;height:200px;border-radius:8px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.env::after{content:"";position:absolute;inset:0;border-radius:8px;background:rgba(0,0,0,.2);clip-path:polygon(0 100%,50% 35%,100% 100%);z-index:3}
+.tapa{position:absolute;top:0;left:0;right:0;height:110px;background:inherit;filter:brightness(.85);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s,z-index 0s .35s;z-index:4}
+.carta{position:absolute;left:5%;right:5%;bottom:10px;height:170px;border-radius:10px;padding:14px 16px;z-index:2;transition:transform .9s .55s,height .9s .55s;overflow:auto;text-align:center}
+.carta .s{font-size:2rem;display:block}
+.carta b{font-family:'Mountains of Christmas',cursive;font-size:1.6rem;display:block;line-height:1.1}
+.carta small{display:block;margin:4px 0;opacity:.75}
+.carta p{font-size:1.15rem;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+.carta em{display:block;margin-top:10px;font-size:.95rem;opacity:.85}
+.abierto .tapa{transform:rotateX(180deg);z-index:1}
+.abierto .carta{transform:translateY(-150px);height:300px;z-index:5}
+.cerrar{position:absolute;top:-130px;right:0;background:rgba(255,255,255,.18);border:0;color:#fff;font-size:1.8rem;width:44px;height:44px;border-radius:50%;cursor:pointer}
+@media(max-height:620px){.escena{margin-top:140px}.abierto .carta{height:240px}}
+.p0{background:#fff8e7;color:#4a2c1a;background-image:repeating-linear-gradient(transparent 0 27px,#ecd9b0 28px)}
+.p1{background:#fdecea;color:#7a1f14}.p2{background:#e8f5e9;color:#14532d}.p3{background:#1b2a4a;color:#fff3c4;background-image:radial-gradient(#fff6 1px,transparent 1.5px);background-size:22px 22px}
+.f0{font-family:'Nunito'}.f1{font-family:'Caveat';font-size:1.25em}.f2{font-family:'Mountains of Christmas'}
+.chispa{position:fixed;z-index:50;pointer-events:none;font-size:1.4rem;animation:sube 1.8s ease-out forwards}
+@keyframes sube{to{transform:translate(var(--dx),-260px) rotate(360deg);opacity:0}}
+#toast{position:fixed;bottom:calc(90px + var(--seg));left:50%;transform:translate(-50%,160px);background:#fff;color:#14532d;padding:12px 20px;border-radius:30px;font-weight:800;z-index:60;transition:.4s;box-shadow:0 6px 20px rgba(0,0,0,.4);text-align:center;max-width:90vw}
+#toast.on{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<canvas id="nieve"></canvas>
+<div class="luces" id="luces"></div>
+<header>
+  <button id="sonido" title="Sonido">🔔</button>
+  <h1>🎄 Mural Navideño 🎄</h1>
+  <div class="cuenta" id="cuenta"></div>
+</header>
+<main>
+  <section class="hero">
+    <p>Deja tu carta para tu amigo secreto y descubre qué quiere cada persona 🎁</p>
+    <button class="cta" id="cta">✍️ Escribir mi carta</button>
+  </section>
+
+  <h2>Cartas del mural</h2>
+  <p class="sub" id="sub"></p>
+  <div class="barra">
+    <input type="search" id="buscar" placeholder="🔍 Buscar por nombre">
+    <button id="azar">🎲 Carta sorpresa</button>
+    <button id="jingle">🎵 Villancico</button>
+  </div>
+  <div class="mural" id="mural"></div>
+</main>
+<footer><button id="excel">⬇️ Descargar Excel</button></footer>
+<button id="fab">✍️ Escribir mi carta</button>
+
+<div class="hoja" id="hoja">
+  <div class="panel">
+    <div class="asa"></div>
+    <button class="x" id="xhoja" aria-label="Cerrar">×</button>
+    <h3>Tu carta navideña</h3>
+    <div class="cuerpo">
+      <div class="prev" id="prev"></div>
+      <div class="tabs"><button id="t1" class="on">1 · Mensaje</button><button id="t2">2 · Estilo</button></div>
+
+      <div id="paso1">
+        <div class="campo"><label for="nombre">Tu nombre</label>
+          <input id="nombre" maxlength="40" placeholder="Ej: María" autocomplete="off" enterkeyhint="next"></div>
+        <div class="campo"><label for="deseo">¿Qué te gustaría recibir? <small id="cont">0/400</small></label>
+          <textarea id="deseo" maxlength="400" placeholder="Ej: Un termo, chocolates, un libro…"></textarea></div>
+        <div class="campo"><label for="pista">Pista para tu amigo secreto <small>opcional</small></label>
+          <input id="pista" maxlength="150" placeholder="Ej: Mi color favorito es el azul 💙" autocomplete="off"></div>
+      </div>
+
+      <div id="paso2" hidden>
+        <div class="grupo"><span class="lbl">Color del sobre</span><div class="opts" id="o-color"></div></div>
+        <div class="grupo"><span class="lbl">Sello</span><div class="opts" id="o-sello"></div></div>
+        <div class="grupo"><span class="lbl">Papel</span><div class="opts" id="o-papel"></div></div>
+        <div class="grupo"><span class="lbl">Letra</span><div class="opts" id="o-fuente"></div></div>
+      </div>
+    </div>
+    <div class="acciones">
+      <button class="sec" id="atras">Cancelar</button>
+      <button class="guardar" id="sig">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal"><div class="escena" id="escena"></div></div>
+<div id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const COLORES = ['#c0392b','#1e8449','#b7950b','#2874a6','#8e44ad','#d35400'];
+const SELLOS = ['🎁','🎄','⭐','🦌','⛄','🔔','🍪','❤️'];
+const PAPELES = ['Crema','Rosa','Menta','Noche'];
+const FUENTES = ['Clásica','A mano','Navideña'];
+let cartas = [], sel = {color:0, sello:'🎁', papel:0, fuente:0}, paso = 1;
+
+/* ---------- Sonido (sintetizado) ---------- */
+let ac, sonido = true;
+function audio(){ if(!ac){ try{ ac = new (window.AudioContext||window.webkitAudioContext)(); }catch{} } if(ac && ac.state==='suspended') ac.resume(); return ac; }
+function campana(f, t=0, dur=.9, vol=.13){
+  const a = audio(); if(!a || !sonido) return;
+  [[1,'sine',1],[2.01,'sine',.35],[3.5,'triangle',.12]].forEach(([m,tipo,v])=>{
+    const o=a.createOscillator(), g=a.createGain(), t0=a.currentTime+t;
+    o.type=tipo; o.frequency.value=f*m; o.connect(g); g.connect(a.destination);
+    g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(vol*v,t0+.01); g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+    o.start(t0); o.stop(t0+dur+.05);
+  });
+}
+const N={C:523.25,D:587.33,E:659.25,F:698.46,G:783.99,C6:1046.5};
+const sonClick = () => campana(N.E,0,.5,.09);
+const sonAbrir = () => [N.C,N.E,N.G,N.C6].forEach((f,i)=>campana(f,i*.11,1.2,.12));
+function villancico(){
+  const m=[['E',1],['E',1],['E',2],['E',1],['E',1],['E',2],['E',1],['G',1],['C',1.5],['D',.5],['E',4],
+           ['F',1],['F',1],['F',1.5],['F',.5],['F',1],['E',1],['E',1],['E',.5],['E',.5],['E',1],['D',1],['D',1],['E',1],['D',2],['G',2]];
+  let t=0; m.forEach(([n,d])=>{ campana(N[n],t,.7); t+=d*.22; });
+}
+$('sonido').onclick = () => { sonido=!sonido; $('sonido').textContent = sonido?'🔔':'🔕'; if(sonido) sonClick(); };
+$('jingle').onclick = villancico;
+
+/* ---------- Decoración ---------- */
+$('luces').innerHTML = '<i></i>'.repeat(Math.ceil(innerWidth/34));
+(function(){
+  const h=new Date(); let n=new Date(h.getFullYear(),11,25); if(h>n) n=new Date(h.getFullYear()+1,11,25);
+  const d=Math.ceil((n-h)/864e5);
+  $('cuenta').textContent = (d<=0||d>=365) ? '🎅 ¡Feliz Navidad!' : `🎅 Faltan ${d} días para Navidad`;
+})();
+(() => {
+  const c=$('nieve'), x=c.getContext('2d'); let w,h;
+  const rs=()=>{w=c.width=innerWidth;h=c.height=innerHeight}; rs(); addEventListener('resize',rs);
+  const f=Array.from({length:55},()=>({x:Math.random()*2000,y:Math.random()*1200,r:Math.random()*2.5+1,v:Math.random()+.4,d:Math.random()*6}));
+  (function loop(){ x.clearRect(0,0,w,h); x.fillStyle='rgba(255,255,255,.85)';
+    f.forEach(p=>{p.y+=p.v;p.d+=.01;p.x+=Math.sin(p.d)*.6; if(p.y>h){p.y=-5;p.x=Math.random()*w} x.beginPath();x.arc(p.x%w,p.y,p.r,0,7);x.fill()});
+    requestAnimationFrame(loop); })();
+})();
+function toast(m){ const t=$('toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),2800); }
+function chispas(){
+  const e=['✨','❄️','🎄','⭐','🎁','❤️'];
+  for(let i=0;i<22;i++){ const s=document.createElement('span'); s.className='chispa'; s.textContent=e[i%e.length];
+    s.style.left=(innerWidth/2-100+Math.random()*200)+'px'; s.style.top=(innerHeight/2+40)+'px';
+    s.style.setProperty('--dx',(Math.random()*300-150)+'px'); s.style.animationDelay=Math.random()*.4+'s';
+    document.body.appendChild(s); setTimeout(()=>s.remove(),2400); }
+}
+
+/* ---------- Creador de carta ---------- */
+const PCOL=['#fff8e7','#fdecea','#e8f5e9','#1b2a4a'], PTXT=['#4a2c1a','#7a1f14','#14532d','#fff3c4'];
+function opciones(id, lista, key, fn){
+  const box=$(id); box.innerHTML='';
+  lista.forEach((v,i)=>{ const b=document.createElement('button'); b.type='button';
+    fn(b,v,i); b.dataset.v = key==='sello' ? v : i;
+    b.onclick=()=>{ sel[key]= key==='sello' ? v : i; sonClick(); marcar(); preview(); };
+    box.appendChild(b); });
+}
+function marcar(){ [['o-color','color'],['o-sello','sello'],['o-papel','papel'],['o-fuente','fuente']].forEach(([id,k])=>
+  [...$(id).children].forEach(b=>b.classList.toggle('sel', b.dataset.v==String(sel[k])))); }
+opciones('o-color',COLORES,'color',(b,v)=>{b.className='sw';b.style.background=v;b.setAttribute('aria-label','Color')});
+opciones('o-sello',SELLOS,'sello',(b,v)=>{b.className='em';b.textContent=v});
+opciones('o-papel',PAPELES,'papel',(b,v,i)=>{b.className='pp';b.textContent=v;b.style.background=PCOL[i];b.style.color=PTXT[i]});
+opciones('o-fuente',FUENTES,'fuente',(b,v,i)=>{b.className='ff f'+i;b.textContent='Aa '+v});
+function preview(){
+  const p=$('prev'); p.className=`prev p${sel.papel} f${sel.fuente}`; p.style.borderTopColor=COLORES[sel.color];
+  p.innerHTML='<span class="s"></span><b></b><div class="d"></div><div class="pi"></div>';
+  p.querySelector('.s').textContent=sel.sello;
+  p.querySelector('b').textContent=$('nombre').value||'Tu nombre';
+  p.querySelector('.d').textContent=$('deseo').value||'Aquí aparecerá lo que quieres de regalo…';
+  const pi=$('pista').value; p.querySelector('.pi').textContent = pi ? '💡 '+pi : '';
+}
+['nombre','deseo','pista'].forEach(i=>$(i).addEventListener('input',()=>{ preview(); $('cont').textContent=$('deseo').value.length+'/400'; }));
+marcar(); preview();
+
+function irPaso(n){
+  paso=n; $('paso1').hidden=n!==1; $('paso2').hidden=n!==2;
+  $('t1').classList.toggle('on',n===1); $('t2').classList.toggle('on',n===2);
+  $('sig').textContent = n===1 ? 'Siguiente →' : '💌 Pegar en el mural';
+  $('atras').textContent = n===1 ? 'Cancelar' : '← Atrás';
+  $('hoja').querySelector('.cuerpo').scrollTop=0;
+}
+function abrirHoja(){ sonClick(); $('hoja').classList.add('on'); document.body.classList.add('lock'); irPaso(1); }
+function cerrarHoja(){ $('hoja').classList.remove('on'); document.body.classList.remove('lock'); }
+['cta','fab'].forEach(i=>$(i).onclick=abrirHoja);
+$('xhoja').onclick=cerrarHoja;
+$('hoja').onclick=ev=>{ if(ev.target.id==='hoja') cerrarHoja(); };
+$('t1').onclick=()=>irPaso(1); $('t2').onclick=()=>irPaso(2);
+$('atras').onclick=()=> paso===1 ? cerrarHoja() : irPaso(1);
+$('sig').onclick=()=>{
+  if(paso===1){ if(!$('nombre').value.trim()||!$('deseo').value.trim()) return toast('Escribe tu nombre y tu deseo 🎁'); sonClick(); irPaso(2); }
+  else guardar();
+};
+
+async function guardar(){
+  const nombre=$('nombre').value.trim(), deseo=$('deseo').value.trim();
+  if(!nombre||!deseo){ irPaso(1); return toast('Escribe tu nombre y tu deseo 🎁'); }
+  $('sig').disabled=true;
+  try{
+    const r=await fetch('/api/cartas',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nombre,deseo,pista:$('pista').value,...sel})});
+    if(!r.ok) throw 0;
+    cerrarHoja(); $('nombre').value=$('deseo').value=$('pista').value=''; $('cont').textContent='0/400'; preview();
+    villancico(); chispas(); toast('¡Tu carta ya está en el mural! 🎄');
+    await cargar(); $('mural').scrollIntoView({behavior:'smooth'});
+  }catch{ toast('No se pudo guardar, intenta de nuevo'); }
+  $('sig').disabled=false;
+}
+
+/* ---------- Mural ---------- */
+async function cargar(){
+  try{ cartas = await (await fetch('/api/cartas')).json(); }catch{ cartas=[]; toast('No se pudo cargar el mural'); }
+  render();
+}
+function render(){
+  const q=$('buscar').value.trim().toLowerCase(), m=$('mural'); m.innerHTML='';
+  const lista=cartas.filter(c=>c.nombre.toLowerCase().includes(q));
+  $('sub').textContent = cartas.length ? `${cartas.length} ${cartas.length===1?'carta esperando':'cartas esperando'} ser abiertas 💌` : '';
+  if(!lista.length){ m.innerHTML = cartas.length ? '<p class="vacio">Nadie con ese nombre todavía 🤔</p>' : '<p class="vacio">El mural está vacío… ¡sé la primera persona en dejar su carta! 🎅</p>'; return; }
+  lista.forEach((c,i)=>{
+    const b=document.createElement('button'); b.className='sobre';
+    b.style.background=COLORES[c.color??i%6]; b.style.transform=`rotate(${((i*7)%9)-4}deg)`; b.style.animationDelay=Math.min(i*.06,1)+'s';
+    b.innerHTML='<div class="pin"></div><div class="sello"></div><span></span>';
+    b.querySelector('.sello').textContent=c.sello||'🎁'; b.querySelector('span').textContent=c.nombre;
+    if(Date.now()-new Date(c.fecha)<864e5) b.insertAdjacentHTML('beforeend','<div class="nuevo">¡Nueva!</div>');
+    b.onclick=()=>abrir(c); m.appendChild(b);
+  });
+}
+function abrir(c){
+  const e=$('escena'); e.classList.remove('abierto');
+  e.innerHTML=`<button class="cerrar" aria-label="Cerrar">×</button>
+    <div class="env"><div class="tapa"></div><div class="carta"><span class="s"></span><b></b><small>quiere de regalo…</small><p></p><em></em></div></div>`;
+  e.querySelector('.env').style.background=COLORES[c.color||0];
+  const ca=e.querySelector('.carta'); ca.className=`carta p${c.papel||0} f${c.fuente||0}`;
+  ca.querySelector('.s').textContent=c.sello||'🎁'; ca.querySelector('b').textContent=c.nombre; ca.querySelector('p').textContent=c.deseo;
+  if(c.pista) ca.querySelector('em').textContent='💡 Pista: '+c.pista; else ca.querySelector('em').remove();
+  $('modal').classList.add('on'); document.body.classList.add('lock'); e.querySelector('.cerrar').onclick=cerrar;
+  setTimeout(()=>{ e.classList.add('abierto'); sonAbrir(); chispas(); },150);
+}
+function cerrar(){ $('modal').classList.remove('on'); $('escena').classList.remove('abierto'); document.body.classList.remove('lock'); }
+$('modal').onclick=ev=>{ if(ev.target.id==='modal') cerrar(); };
+addEventListener('keydown',ev=>{ if(ev.key==='Escape'){ cerrar(); cerrarHoja(); } });
+$('buscar').oninput=render;
+$('azar').onclick=()=>{ if(!cartas.length) return toast('Aún no hay cartas 🎅'); sonClick(); abrir(cartas[Math.floor(Math.random()*cartas.length)]); };
+
+$('excel').onclick=()=>{
+  if(!cartas.length) return toast('Aún no hay cartas para exportar');
+  const filas=cartas.map(c=>({Nombre:c.nombre,'Qué quiere':c.deseo,Pista:c.pista||'',Fecha:new Date(c.fecha).toLocaleString('es-CR')}));
+  const ws=XLSX.utils.json_to_sheet(filas); ws['!cols']=[{wch:24},{wch:60},{wch:40},{wch:20}];
+  const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Amigo Secreto'); XLSX.writeFile(wb,'amigo_secreto.xlsx');
+};
+cargar();
+</script>
+</body>
+</html>
