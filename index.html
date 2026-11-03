@@ -23,7 +23,7 @@ header{text-align:center;padding:16px 16px 4px;position:relative;z-index:2}
 h1{font-family:'Mountains of Christmas',cursive;font-size:clamp(2rem,9vw,3.6rem);color:var(--oro);text-shadow:0 3px 0 #7a1f14,0 0 24px rgba(244,201,93,.4);line-height:1.1}
 .cuenta{display:inline-block;margin-top:10px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);padding:7px 16px;border-radius:30px;font-weight:700;font-size:.92rem;border:1px solid rgba(255,255,255,.2)}
 #sonido{position:absolute;top:10px;right:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.2rem;width:44px;height:44px;border-radius:50%;cursor:pointer;backdrop-filter:blur(8px)}
-main{max-width:980px;margin:0 auto;padding:10px 14px calc(110px + var(--seg));position:relative;z-index:2}
+main{max-width:980px;margin:0 auto;padding:10px 14px calc(50px + var(--seg));position:relative;z-index:2}
 .hero{text-align:center;margin:12px auto 26px;max-width:420px}
 .hero p{opacity:.92;margin-bottom:14px;line-height:1.4}
 .cta{border:0;border-radius:40px;padding:15px 28px;font:800 1.1rem 'Nunito';color:#fff;background:linear-gradient(135deg,#e74c3c,#c0392b);box-shadow:0 8px 22px rgba(192,57,43,.5);cursor:pointer}
@@ -47,15 +47,13 @@ h2{font-family:'Mountains of Christmas',cursive;text-align:center;font-size:1.9r
 @keyframes latido{50%{transform:scale(1.18)}}
 @keyframes entrada{from{opacity:0;transform:translateY(-20px) scale(.8)}}
 .vacio{grid-column:1/-1;text-align:center;opacity:.9;padding:30px 10px}
-footer{text-align:center;padding:20px 0 calc(110px + var(--seg));position:relative;z-index:2;opacity:.7;font-size:.9rem}
-#fab{position:fixed;left:50%;bottom:calc(16px + var(--seg));transform:translateX(-50%);z-index:8;border:0;border-radius:40px;padding:15px 26px;font:800 1.05rem 'Nunito';color:#fff;background:linear-gradient(135deg,#e74c3c,#c0392b);box-shadow:0 8px 24px rgba(0,0,0,.5);cursor:pointer;white-space:nowrap}
-#fab:active{transform:translateX(-50%) scale(.95)}
+footer{text-align:center;padding:20px 0 calc(40px + var(--seg));position:relative;z-index:2;opacity:.7;font-size:.9rem}
 
 /* Hoja para crear carta */
 .hoja{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:flex-end;justify-content:center;z-index:20;backdrop-filter:blur(3px)}
 .hoja.on{display:flex}
-.panel{background:#fffaf0;color:var(--tinta);width:100%;max-width:540px;max-height:94dvh;border-radius:28px 28px 0 0;display:flex;flex-direction:column;animation:subir .35s cubic-bezier(.2,.9,.3,1);position:relative}
-@media(min-width:700px){.hoja{align-items:center}.panel{border-radius:28px;max-height:90vh}}
+.panel{background:#fffaf0;color:var(--tinta);width:100%;max-width:540px;max-height:85dvh;border-radius:28px 28px 0 0;display:flex;flex-direction:column;animation:subir .35s cubic-bezier(.2,.9,.3,1);position:relative;margin-bottom:calc(30px + var(--seg))}
+@media(min-width:700px){.hoja{align-items:center}.panel{border-radius:28px;max-height:85vh;margin-bottom:0}}
 @keyframes subir{from{transform:translateY(100%)}}
 .asa{width:44px;height:5px;background:#d9c9a3;border-radius:5px;margin:10px auto 0}
 .x{position:absolute;top:10px;right:12px;width:40px;height:40px;border:0;border-radius:50%;background:#f1e6cc;font-size:1.4rem;cursor:pointer;color:var(--tinta)}
@@ -83,7 +81,7 @@ footer{text-align:center;padding:20px 0 calc(110px + var(--seg));position:relati
 .opts .em{width:46px;height:46px;font-size:1.5rem}
 .opts .pp{width:calc(25% - 8px);min-width:64px;height:62px;font-size:.7rem;font-weight:800;padding:4px;display:flex;align-items:flex-end;justify-content:center}
 .opts .ff{padding:8px 16px;font-size:1.25rem;min-height:44px}
-.acciones{display:flex;gap:10px;padding:10px 18px calc(14px + var(--seg));border-top:1px solid #eadbb8;background:#fffaf0}
+.acciones{display:flex;gap:10px;padding:10px 18px calc(14px + var(--seg));border-top:1px solid #eadbb8;background:#fffaf0;border-radius:0 0 28px 28px}
 .acciones button{border:0;border-radius:30px;padding:15px;font:800 1.05rem 'Nunito';cursor:pointer}
 .sec{background:#f1e6cc;color:var(--tinta);flex:0 0 36%}
 .guardar{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;flex:1;box-shadow:0 4px 12px rgba(192,57,43,.4)}
@@ -111,7 +109,7 @@ footer{text-align:center;padding:20px 0 calc(110px + var(--seg));position:relati
 .f0{font-family:'Nunito'}.f1{font-family:'Caveat';font-size:1.25em}.f2{font-family:'Mountains of Christmas'}
 .chispa{position:fixed;z-index:50;pointer-events:none;font-size:1.4rem;animation:sube 1.8s ease-out forwards}
 @keyframes sube{to{transform:translate(var(--dx),-260px) rotate(360deg);opacity:0}}
-#toast{position:fixed;bottom:calc(90px + var(--seg));left:50%;transform:translate(-50%,160px);background:#fff;color:#14532d;padding:12px 20px;border-radius:30px;font-weight:800;z-index:60;transition:.4s;box-shadow:0 6px 20px rgba(0,0,0,.4);text-align:center;max-width:90vw}
+#toast{position:fixed;bottom:calc(70px + var(--seg));left:50%;transform:translate(-50%,160px);background:#fff;color:#14532d;padding:12px 20px;border-radius:30px;font-weight:800;z-index:60;transition:.4s;box-shadow:0 6px 20px rgba(0,0,0,.4);text-align:center;max-width:90vw}
 #toast.on{transform:translate(-50%,0)}
 </style>
 </head>
@@ -139,7 +137,6 @@ footer{text-align:center;padding:20px 0 calc(110px + var(--seg));position:relati
   <div class="mural" id="mural"></div>
 </main>
 <footer>🎄 Tiendas Ekono · Espíritu Navideño 🎄</footer>
-<button id="fab">✍️ Escribir mi carta</button>
 
 <div class="hoja" id="hoja">
   <div class="panel">
@@ -279,12 +276,13 @@ function irPaso(n){
 }
 function abrirHoja(){ sonClick(); $('hoja').classList.add('on'); document.body.classList.add('lock'); irPaso(1); }
 function cerrarHoja(){ $('hoja').classList.remove('on'); document.body.classList.remove('lock'); }
-['cta','fab'].forEach(i=>$(i).onclick=abrirHoja);
-$('xhoja').onclick=cerrarHoja;
-$('hoja').onclick=ev=>{ if(ev.target.id==='hoja') cerrarHoja(); };
-$('t1').onclick=()=>irPaso(1); $('t2').onclick=()=>irPaso(2);
-$('atras').onclick=()=> paso===1 ? cerrarHoja() : irPaso(1);
-$('sig').onclick=()=>{
+$('cta').onclick = abrirHoja;
+$('xhoja').onclick = cerrarHoja;
+$('hoja').onclick = ev => { if(ev.target.id==='hoja') cerrarHoja(); };
+$('t1').onclick = () => irPaso(1);
+$('t2').onclick = () => irPaso(2);
+$('atras').onclick = () => paso===1 ? cerrarHoja() : irPaso(1);
+$('sig').onclick = () => {
   if(paso===1){ if(!$('nombre').value.trim()||!$('deseo').value.trim()) return toast('Escribe tu nombre y tu deseo 🎁'); sonClick(); irPaso(2); }
   else guardar();
 };
